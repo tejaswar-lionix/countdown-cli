@@ -26,5 +26,19 @@ class DurationTests(unittest.TestCase):
         self.assertEqual(format_duration(125), "2m 5s")
 
 
+class ClockTests(unittest.TestCase):
+    def test_format_clock(self):
+        from duration import format_clock
+
+        self.assertEqual(format_clock(0), "00:00:00")
+        self.assertEqual(format_clock(3723), "01:02:03")
+
+    def test_format_clock_rejects_negative(self):
+        from duration import format_clock
+
+        with self.assertRaises(ValueError):
+            format_clock(-1)
+
+
 if __name__ == "__main__":
     unittest.main()
