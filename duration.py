@@ -41,3 +41,13 @@ def format_duration(seconds):
     if parts["seconds"] or not pieces:
         pieces.append("%ds" % parts["seconds"])
     return " ".join(pieces)
+
+
+def format_clock(seconds):
+    """Format seconds as HH:MM:SS."""
+    parts = breakdown(seconds)
+    return "%02d:%02d:%02d" % (
+        parts["hours"],
+        parts["minutes"],
+        parts["seconds"],
+    )
