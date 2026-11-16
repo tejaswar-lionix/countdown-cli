@@ -52,6 +52,23 @@ def format_duration(seconds):
     return " ".join(pieces)
 
 
+def format_long(seconds):
+    """Format seconds as a long readable string with unit names."""
+    parts = breakdown(seconds)
+    days, hours = divmod(parts["hours"], 24)
+    pieces = []
+    for value, unit in (
+        (days, "day"),
+        (hours, "hour"),
+        (parts["minutes"], "minute"),
+        (parts["seconds"], "second"),
+    ):
+        if value:
+            suffix = "" if value == 1 else "s"
+            pieces.append("%d %s%s" % (value, unit, suffix))
+    return " ".join(pieces) if pieces else "0 seconds"
+
+
 def format_clock(seconds):
     """Format seconds as HH:MM:SS."""
     parts = breakdown(seconds)
