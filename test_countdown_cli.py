@@ -40,5 +40,40 @@ class ClockTests(unittest.TestCase):
             format_clock(-1)
 
 
+class RemainingUntilTests(unittest.TestCase):
+    def test_future_target_returns_exact_seconds(self):
+        from datetime import datetime
+
+        from duration import remaining_until
+
+        now = datetime(2026, 11, 16, 17, 0, 0)
+        self.assertEqual(
+            remaining_until("2026-11-16T18:00:00", now),
+            3600,
+        )
+
+    def test_past_target_returns_zero(self):
+        from datetime import datetime
+
+        from duration import remaining_until
+
+        now = datetime(2026, 11, 16, 18, 0, 0)
+        self.assertEqual(remaining_until("2026-11-16T17:00:00", now), 0)
+
+    def test_date_only_target_is_midnight(self):
+        from datetime import datetime
+
+        from duration import remaining_until
+
+        now = datetime(2026, 11, 15, 22, 0, 0)
+        self.assertEqual(remaining_until("2026-11-16", now), 7200)
+
+    def test_malformed_target_raises(self):
+        from duration import remaining_until
+
+        with self.assertRaises(ValueError):
+            remaining_until("not-a-date")
+
+
 if __name__ == "__main__":
     unittest.main()
