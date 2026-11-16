@@ -24,6 +24,14 @@ def parse_duration(text):
     return hours * 3600 + minutes * 60 + seconds
 
 
+def sum_durations(values):
+    """Sum an iterable of duration strings into total seconds."""
+    items = list(values)
+    if not items:
+        raise ValueError("values must not be empty")
+    return sum(parse_duration(item) for item in items)
+
+
 def breakdown(seconds):
     if seconds < 0:
         raise ValueError("seconds must not be negative")
