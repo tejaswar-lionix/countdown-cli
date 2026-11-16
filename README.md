@@ -8,6 +8,7 @@ Parse and format durations like 1h30m.
 python3 -c "from duration import *; print(parse_duration('1h30m')); print(format_duration(5400))"
 python3 -c "from duration import remaining_until; print(remaining_until('2026-11-16T18:00:00'))"
 python3 -c "from duration import sum_durations; print(sum_durations(['1h30m', '45s']))"
+python3 -c "from duration import format_long; print(format_long(93784))"
 ```
 
 ## Features
@@ -16,6 +17,7 @@ python3 -c "from duration import sum_durations; print(sum_durations(['1h30m', '4
 - Validation for malformed and oversized components
 - Sum duration lists with sum_durations(values)
 - Clock output with format_clock(seconds)
+- Long readable output with format_long(seconds)
 - Countdown to ISO datetimes with remaining_until(target, now)
 
 ## Tests

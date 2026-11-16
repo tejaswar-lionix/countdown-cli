@@ -26,6 +26,35 @@ class DurationTests(unittest.TestCase):
         self.assertEqual(format_duration(125), "2m 5s")
 
 
+class FormatLongTests(unittest.TestCase):
+    def test_zero(self):
+        from duration import format_long
+
+        self.assertEqual(format_long(0), "0 seconds")
+
+    def test_single_unit(self):
+        from duration import format_long
+
+        self.assertEqual(format_long(3600), "1 hour")
+        self.assertEqual(format_long(60), "1 minute")
+        self.assertEqual(format_long(1), "1 second")
+
+    def test_multiple_units(self):
+        from duration import format_long
+
+        self.assertEqual(
+            format_long(93784),
+            "1 day 2 hours 3 minutes 4 seconds",
+        )
+        self.assertEqual(format_long(90061), "1 day 1 hour 1 minute 1 second")
+
+    def test_negative_raises(self):
+        from duration import format_long
+
+        with self.assertRaises(ValueError):
+            format_long(-1)
+
+
 class SumDurationsTests(unittest.TestCase):
     def test_mixed_durations_sum(self):
         from duration import sum_durations
