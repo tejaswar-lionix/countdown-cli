@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Parse and format durations like 1h30m and 5400 seconds."""
 import re
+from datetime import date, datetime
 
 PATTERN = re.compile(
     r"\s*(?:(?P<hours>\d+)h)?\s*(?:(?P<minutes>\d+)m)?\s*(?:(?P<seconds>\d+)s)?\s*",
@@ -51,3 +52,13 @@ def format_clock(seconds):
         parts["minutes"],
         parts["seconds"],
     )
+
+
+def remaining_until(target, now=None):
+    text = target.strip()
+    try:
+        target_dt = datetime.fromisoformat(text)
+    except ValueError:
+        target_dt = datetime.combine(date.fromisoformat(text), datetime.min.time())
+    now_dt = now or datetime.now()
+    return max(0, int((target_dt - now_dt).total_seconds()))
