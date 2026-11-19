@@ -24,6 +24,21 @@ def parse_duration(text):
     return hours * 3600 + minutes * 60 + seconds
 
 
+CLOCK_PATTERN = re.compile(r"^(?P<hours>\d+):(?P<minutes>\d{2}):(?P<seconds>\d{2})$")
+
+
+def parse_clock(text):
+    match = CLOCK_PATTERN.fullmatch(text.strip())
+    if not match:
+        raise ValueError("invalid clock value")
+    hours = int(match.group("hours"))
+    minutes = int(match.group("minutes"))
+    seconds = int(match.group("seconds"))
+    if minutes >= 60 or seconds >= 60:
+        raise ValueError("minutes and seconds must be below 60")
+    return hours * 3600 + minutes * 60 + seconds
+
+
 def sum_durations(values):
     """Sum an iterable of duration strings into total seconds."""
     items = list(values)
