@@ -80,6 +80,20 @@ class SumDurationsTests(unittest.TestCase):
 
 
 class ClockTests(unittest.TestCase):
+    def test_parse_clock(self):
+        from duration import parse_clock
+
+        self.assertEqual(parse_clock("00:00:00"), 0)
+        self.assertEqual(parse_clock("01:02:03"), 3723)
+        self.assertEqual(parse_clock("25:00:00"), 90000)
+
+    def test_parse_clock_rejects_invalid(self):
+        from duration import parse_clock
+
+        for text in ("", "1:2:3", "01:02", "01:02:03:04", "aa:bb:cc", "00:60:00", "00:00:60"):
+            with self.assertRaises(ValueError):
+                parse_clock(text)
+
     def test_format_clock(self):
         from duration import format_clock
 
