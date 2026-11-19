@@ -142,5 +142,23 @@ class RemainingUntilTests(unittest.TestCase):
             remaining_until("not-a-date")
 
 
+class FormatRemainingTests(unittest.TestCase):
+    def test_formats_remaining_time(self):
+        from datetime import datetime
+
+        from duration import format_remaining
+
+        now = datetime(2026, 11, 16, 8, 30)
+        self.assertEqual(format_remaining("2026-11-16T10:00:00", now), "1h 30m")
+
+    def test_returns_zero_after_target(self):
+        from datetime import datetime
+
+        from duration import format_remaining
+
+        now = datetime(2026, 11, 16, 12, 0)
+        self.assertEqual(format_remaining("2026-11-16T10:00:00", now), "0s")
+
+
 if __name__ == "__main__":
     unittest.main()

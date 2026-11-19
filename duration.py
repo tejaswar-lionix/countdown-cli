@@ -102,3 +102,8 @@ def remaining_until(target, now=None):
         target_dt = datetime.combine(date.fromisoformat(text), datetime.min.time())
     now_dt = now or datetime.now()
     return max(0, int((target_dt - now_dt).total_seconds()))
+
+
+def format_remaining(target, now=None):
+    """Return the time left until target as a compact duration string."""
+    return format_duration(remaining_until(target, now))

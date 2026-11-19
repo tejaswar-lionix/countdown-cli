@@ -28,6 +28,10 @@ python3 -c "from duration import parse_clock; print(parse_clock('01:02:03'))"
 python3 -m unittest -q
 ```
 
+## Additional API
+
+- `format_remaining(target, now=None)` formats the time left until a target as a compact duration.
+
 ## License
 
 MIT
